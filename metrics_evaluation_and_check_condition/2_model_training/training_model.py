@@ -2,11 +2,12 @@ import argparse
 import pandas as pd
 import json
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split 
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score, recall_score, f1_score, precision_score
 from io import StringIO
 from tensorflow.python.lib.io import file_io
+
 
 def load_data(data):
     d = StringIO(data)
@@ -14,15 +15,14 @@ def load_data(data):
     print(iris.shape)
     return iris
 
-def get_train_test_data(iris):
 
+def get_train_test_data(iris):
     encode = LabelEncoder()
     iris.Species = encode.fit_transform(iris.Species)
 
-    train , test = train_test_split(iris, test_size=0.2, random_state=0)
+    train, test = train_test_split(iris, test_size=0.2, random_state=0)
     print('shape of training data : ', train.shape)
     print('shape of testing data', test.shape)
-
 
     X_train = train.drop(columns=['Species'], axis=1)
     y_train = train['Species']
@@ -31,13 +31,14 @@ def get_train_test_data(iris):
 
     return X_train, X_test, y_train, y_test
 
+
 def evaluation(y_test, predict):
     print("accuarcy : ", accuracy_score(y_test, predict))
 
     accuracy = accuracy_score(y_test, predict)
-    #f1 = f1_score(y_test, predict)
-    #precision = precision_score(y_test, predict)
-    #recall = recall_score(y_test, predict)
+    # f1 = f1_score(y_test, predict)
+    # precision = precision_score(y_test, predict)
+    # recall = recall_score(y_test, predict)
 
     '''
     metrics = {
@@ -75,12 +76,11 @@ def evaluation(y_test, predict):
 
 
 if __name__ == "__main__":
-    
     argument_parser = argparse.ArgumentParser()
 
     argument_parser.add_argument(
         '--data',
-        type=str, 
+        type=str,
         help="Input data csv"
     )
 
@@ -95,5 +95,3 @@ if __name__ == "__main__":
     predict = model.predict(X_test)
     print('\nevaluation : ')
     evaluation(y_test, predict)
-    
-    
