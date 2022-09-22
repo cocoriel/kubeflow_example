@@ -1,9 +1,7 @@
 import pandas as pd
 import argparse
 
-
 if __name__ == "__main__":
-    
     argument_parser = argparse.ArgumentParser()
 
     argument_parser.add_argument(
@@ -17,4 +15,4 @@ if __name__ == "__main__":
 
     print("load data")
 
-    data.to_csv('/iris.csv', index=False)
+    data.to_csv("/iris.csv", index=False)
